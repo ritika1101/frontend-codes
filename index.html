@@ -1,24 +1,1158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <?php include "navigation.html"; ?>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek Black & Blue Pure CSS Navigation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Color Variables --- */
+        :root {
+            --color-primary: #22d3ee; /* Bright Cyan Accent */
+            --color-accent: #6366f1;  /* Deep Indigo/Secondary */
+            --color-bg-dark: #0f172a; /* Main Dark Background */
+            --color-card-dark: #1e293b; /* Hover/Card Background */
+            --color-text: #e2e8f0;    /* Light Text */
+        }
 
-    <!-- Hero -->
-    <?php include "hero.html"; ?>
+        /* --- Global Reset & Typography --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    <!-- Services -->
-    <?php include "services.html"; ?>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text);
+            padding-top: 5.5rem; /* Space for the fixed header */
+            min-height: 100vh;
+        }
 
-    <!-- Contact -->
-    <?php include "contact.html"; ?>
+        a {
+            text-decoration: none;
+            color: var(--color-text);
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+        }
 
-    <!-- Footer -->
-    <?php include "footer.html"; ?>
+        /* --- Navigation Bar Styling --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background-color: rgba(15, 23, 42, 0.9); /* Semi-transparent background */
+            border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            height: 5.5rem; /* 88px */
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem; /* Horizontal padding */
+        }
+
+        .navbar-container {
+            width: 100%;
+            max-width: 1280px; /* Max width equivalent to Tailwind's max-w-7xl */
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Brand Styling */
+        .brand-logo {
+            font-size: 1.875rem; /* 3xl */
+            font-weight: 800;
+            letter-spacing: -0.05em; /* tracking-tight */
+        }
+        .brand-logo span:first-child { color: var(--color-primary); }
+        .brand-logo span:last-child { color: var(--color-accent); }
+
+        /* Desktop Links Styling */
+        .nav-links {
+            display: none; /* Hidden by default on mobile */
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 9999px; /* Pill shape */
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem; /* sm */
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-text);
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+            background-color: var(--color-card-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(34, 211, 238, 0.1);
+        }
+
+        .nav-link.active-link {
+            color: black;
+            background-color: var(--color-primary);
+            box-shadow: 0 10px 15px rgba(34, 211, 238, 0.4);
+        }
+
+        /* CTA Button */
+        .cta-button {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: white;
+            background-color: var(--color-accent);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.5);
+        }
+        .cta-button:hover {
+            background-color: #4f46e5; /* Deeper indigo */
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.7);
+        }
+
+        /* --- Mobile Menu Toggle Button --- */
+        .menu-toggle {
+            display: block; /* Visible by default on mobile */
+            background: none;
+            color: var(--color-primary);
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            transition: color 0.15s;
+        }
+        .menu-toggle:hover {
+            color: #06b6d4; /* Darker cyan on hover */
+        }
+        .menu-toggle svg {
+            width: 2rem;
+            height: 2rem;
+        }
+        
+        /* --- Mobile Dropdown Menu --- */
+        .mobile-menu {
+            display: none; /* Hidden by default */
+            width: 100%;
+            position: absolute;
+            top: 5.5rem; /* Position below the fixed navbar */
+            left: 0;
+            background-color: var(--color-bg-dark);
+            border-top: 1px solid rgba(100, 116, 139, 0.5); /* slate-700 equivalent */
+            padding: 0.5rem 0;
+        }
+        .mobile-menu.open {
+            display: block;
+        }
+        
+        .mobile-menu-item {
+            display: block;
+            padding: 0.6rem 1rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .mobile-menu-item:not(.active-link):hover {
+            background-color: var(--color-card-dark);
+            color: var(--color-primary);
+        }
+
+        .mobile-menu-cta {
+            width: calc(100% - 1rem); /* Full width minus margin */
+            margin: 0.5rem 0.5rem 0;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: white;
+            background-color: var(--color-accent);
+            transition: background-color 0.2s;
+        }
+        .mobile-menu-cta:hover {
+             background-color: #4f46e5;
+        }
+
+        /* --- Media Query for Desktop (sm: 640px and up) --- */
+        @media (min-width: 640px) {
+            .nav-links {
+                display: flex; /* Show desktop links */
+            }
+            .menu-toggle {
+                display: none; /* Hide hamburger menu */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECTION: Fixed, Attractive Navigation Bar (Pure CSS & JS) -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            
+            <!-- Brand Name / Logo -->
+            <a href="#" class="brand-logo">
+                <span>Cyber</span><span>Nav</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <div class="nav-links">
+                <a href="#" class="nav-link active-link">Home</a>
+                <a href="#" class="nav-link">Features</a>
+                <a href="#" class="nav-link">Pricing</a>
+                <a href="#" class="nav-link">Contact</a>
+                <!-- CTA Button -->
+                <button class="cta-button">
+                    Get Started
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button id="menu-button" class="menu-toggle" aria-expanded="false">
+                <!-- Icon when menu is closed -->
+                <svg id="menu-icon-closed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <!-- Icon when menu is open -->
+                <svg class="hidden" id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (responsive dropdown) -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#" class="mobile-menu-item active-link">Home</a>
+        <a href="#" class="mobile-menu-item">Features</a>
+        <a href="#" class="mobile-menu-item">Pricing</a>
+        <a href="#" class="mobile-menu-item">Contact</a>
+        <button class="mobile-menu-cta">
+            Get Started
+        </button>
+    </div>
+
+    <!-- Main content area placeholder to demonstrate fixed navigation -->
+    <div class="content-placeholder">
+        <div style="padding: 2rem; background-color: #1e293b; border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-left: 4px solid var(--color-primary);">
+            <h1 style="font-size: 1.875rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">Content Placeholder</h1>
+            <p style="color: #94a3b8;">This content area helps demonstrate that the navigation bar remains fixed at the top as you scroll, and the theme remains consistent.</p>
+        </div>
+    </div>
+
+
+    <!--
+        SECTION: JavaScript for Mobile Menu Functionality
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconClosed = document.getElementById('menu-icon-closed');
+            const iconOpen = document.getElementById('menu-icon-open');
+
+            // Function to toggle the menu state
+            const toggleMenu = () => {
+                const isHidden = !mobileMenu.classList.contains('open');
+                
+                if (isHidden) {
+                    // Show the menu
+                    mobileMenu.classList.add('open');
+                    // Swap icons (show close icon, hide hamburger icon)
+                    iconClosed.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    menuButton.setAttribute('aria-expanded', 'true');
+                } else {
+                    // Hide the menu
+                    mobileMenu.classList.remove('open');
+                    // Swap icons back
+                    iconClosed.classList.remove('hidden');
+                    iconOpen.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                }
+            };
+
+            // Event listener for the hamburger button
+            menuButton.addEventListener('click', toggleMenu);
+        });
+    </script>
+
+</body>
+</html>
+  
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone Aesthetic Hero Section</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Color Variables --- */
+        :root {
+            --color-primary: #22d3ee; /* Bright Cyan Accent (Catchy Blue) */
+            --color-accent: #6366f1;  /* Deep Indigo/Secondary Blue */
+            --color-bg-dark: #0f172a; /* Main Dark Background (Near Black) */
+            --color-card-dark: #1e293b; /* Hover/Card Background */
+            --color-text: #e2e8f0;    /* Light Text */
+        }
+
+        /* --- Global Reset & Typography --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-text);
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+        }
+
+        /* --- Hero Section Styling --- */
+        .hero-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            /* Generous padding for visual separation */
+            padding: 8rem 1.5rem; 
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 3.5rem; /* Larger title for impact */
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            /* Gradient Text Effect */
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
+            animation: pulseGlow 5s infinite alternate;
+        }
+
+        .hero-subtext {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #94a3b8; /* Slate-400 */
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Primary CTA Button (Hero) */
+        .cta-primary-hero {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: black;
+            background-color: var(--color-primary);
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(34, 211, 238, 0.6);
+        }
+        .cta-primary-hero:hover {
+            background-color: #06b6d4; /* Darker cyan */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(34, 211, 238, 0.8);
+        }
+
+        /* Secondary CTA Button (Hero) */
+        .cta-secondary-hero {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            background-color: transparent;
+            transition: all 0.3s;
+        }
+        .cta-secondary-hero:hover {
+            background-color: rgba(34, 211, 238, 0.1);
+            color: white;
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Responsive adjustment for title on mobile */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtext {
+                font-size: 1rem;
+            }
+            .hero-section {
+                padding: 6rem 1rem;
+            }
+        }
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-illustration {
+                width: 300px;
+                height: 300px;
+                opacity: 0.05;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+
+        /* Background animation for extra aesthetics */
+        @keyframes pulseGlow {
+            0% { filter: brightness(1.0) drop-shadow(0 0 5px rgba(34, 211, 238, 0.5)); }
+            100% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(99, 102, 241, 0.8)); }
+        }
+
+        /* Abstract Background Shapes (SVG for a self-contained, high-tech look) */
+        .hero-illustration {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            opacity: 0.1;
+            z-index: 1;
+            width: 600px; /* Large size */
+            height: 600px;
+            filter: blur(50px);
+            pointer-events: none;
+            animation: rotateBackground 30s linear infinite;
+        }
+
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECTION: Aesthetic Hero Section (Headliner, Subtext, CTAs, Background Glow) -->
+    <section class="hero-section">
+        <!-- Abstract Background Illustration (SVG for self-contained glow) -->
+        <svg class="hero-illustration" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--color-primary); stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:var(--color-accent); stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <path fill="url(#gradient)" d="M54.5,-29.9C65.5,-12.3,64.2,16.2,50.3,31.7C36.4,47.3,9.8,50,-15.8,42.9C-41.5,35.8,-65.3,18,-66,-0.1C-66.6,-18.2,-44.2,-36.4,-22.4,-48.9C-0.6,-61.4,20.8,-68.2,36.9,-58.5C53.1,-48.8,64.7,-32.7,54.5,-29.9Z" transform="translate(100 100)" />
+        </svg>
+
+        <div class="hero-content">
+            <!-- Headline -->
+            <h1 class="hero-title">
+                Next-Generation Digital Solutions
+            </h1>
+            <!-- Subtext -->
+            <p class="hero-subtext">
+                Leveraging cutting-edge blue-chip technology for unparalleled performance and security in the digital landscape. Experience the future, today.
+            </p>
+            
+            <!-- CTA Group -->
+            <div class="cta-group">
+                <a href="#" class="cta-primary-hero">
+                    Start Your Free Trial
+                </a>
+                <a href="#" class="cta-secondary-hero">
+                    Explore Features
+                </a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+  
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #0f0f0f 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .services-section {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: #b0b0b0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #0a0a0a 0%, #151520 50%, #0a0a0a 100%);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(74, 144, 226, 0.2);
+            border-color: rgba(74, 144, 226, 0.3);
+        }
+
+        .service-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            object-fit: contain;
+            filter: brightness(0.9);
+            transition: filter 0.3s ease;
+        }
+
+        .service-card:hover .service-image {
+            filter: brightness(1.1);
+        }
+
+        .service-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .service-description {
+            font-size: 15px;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 992px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .section-header p {
+                font-size: 16px;
+            }
+
+            .service-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="services-section">
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p>Discover what we can do for you</p>
+        </div>
+
+        <div class="services-grid">
+            <!-- Service Card 1 -->
+            <div class="service-card">
+                <img src="IMAGE_URL_1" alt="Service 1" class="service-image">
+                <h3 class="service-title">Web Development</h3>
+                <p class="service-description">
+                    Build responsive and modern websites tailored to your business needs with cutting-edge technologies and best practices.
+                </p>
+            </div>
+
+            <!-- Service Card 2 -->
+            <div class="service-card">
+                <img src="IMAGE_URL_2" alt="Service 2" class="service-image">
+                <h3 class="service-title">Mobile Apps</h3>
+                <p class="service-description">
+                    Create intuitive mobile applications for iOS and Android that engage users and drive business growth.
+                </p>
+            </div>
+
+            <!-- Service Card 3 -->
+            <div class="service-card">
+                <img src="IMAGE_URL_3" alt="Service 3" class="service-image">
+                <h3 class="service-title">UI/UX Design</h3>
+                <p class="service-description">
+                    Design beautiful and user-friendly interfaces that enhance user experience and increase engagement.
+                </p>
+            </div>
+
+            <!-- Service Card 4 -->
+            <div class="service-card">
+                <img src="IMAGE_URL_4" alt="Service 4" class="service-image">
+                <h3 class="service-title">Digital Marketing</h3>
+                <p class="service-description">
+                    Grow your online presence with strategic marketing campaigns that reach your target audience effectively.
+                </p>
+            </div>
+
+            <!-- Service Card 5 -->
+            <div class="service-card">
+                <img src="IMAGE_URL_5" alt="Service 5" class="service-image">
+                <h3 class="service-title">Cloud Solutions</h3>
+                <p class="service-description">
+                    Scale your infrastructure with secure and reliable cloud services that keep your business running smoothly.
+                </p>
+            </div>
+
+            <!-- Service Card 6 -->
+            <div class="service-card">
+                <img src="IMAGE_URL_6" alt="Service 6" class="service-image">
+                <h3 class="service-title">Consulting</h3>
+                <p class="service-description">
+                    Get expert advice and guidance to optimize your technology stack and achieve your business goals.
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+  
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #0f0f0f 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #0a0a0a 0%, #151520 50%, #0a0a0a 100%);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            background-color: rgba(37, 37, 37, 0.8);
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            background-color: rgba(37, 37, 37, 0.95);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #666;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px auto;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form>
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input 
+                    type="text" 
+                    id="fullName" 
+                    name="fullName" 
+                    placeholder="John Doe" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="john.doe@example.com" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="+1 (555) 123-4567" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input 
+                    type="text" 
+                    id="subject" 
+                    name="subject" 
+                    placeholder="How can we help you?" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea 
+                    id="message" 
+                    name="message" 
+                    placeholder="Tell us more about your inquiry..." 
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+  
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Startup Footer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        footer {
+            background: #0f0f0f;
+            color: #ffffff;
+            padding: 60px 0 0;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .company-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .company-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+            padding-left: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            color: #b0b0b0;
+            font-size: 14px;
+        }
+
+        .contact-item i {
+            color: #667eea;
+            width: 20px;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+
+        .contact-item a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #667eea;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #2a2a2a;
+        }
+
+        .social-icons a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a2a2a;
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        .copyright {
+            color: #808080;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .footer-column {
+                min-width: 100%;
+            }
+
+            .social-icons {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            footer {
+                padding: 40px 0 0;
+            }
+
+            .footer-container {
+                padding: 0 15px;
+            }
+
+            .footer-title {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- Company Info Column -->
+                <div class="footer-column">
+                    <div class="footer-logo">T</div>
+                    <h3 class="company-name">TechVision</h3>
+                    <p class="company-description">
+                        Empowering businesses with cutting-edge technology solutions. We transform ideas into innovative digital experiences that drive growth and success.
+                    </p>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info Column -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:hello@techvision.com">hello@techvision.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+1234567890">+1 (234) 567-890</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Innovation Drive<br>San Francisco, CA 94105</span>
+                    </div>
+                </div>
+
+                <!-- Social Media Column -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 TechVision. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
 
 </body>
 </html>
