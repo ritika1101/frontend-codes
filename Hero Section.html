@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone Aesthetic Hero Section</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Color Variables --- */
+        :root {
+            --color-primary: #22d3ee; /* Bright Cyan Accent (Catchy Blue) */
+            --color-accent: #6366f1;  /* Deep Indigo/Secondary Blue */
+            --color-bg-dark: #0f172a; /* Main Dark Background (Near Black) */
+            --color-card-dark: #1e293b; /* Hover/Card Background */
+            --color-text: #e2e8f0;    /* Light Text */
+        }
+
+        /* --- Global Reset & Typography --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-text);
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+        }
+
+        /* --- Hero Section Styling --- */
+        .hero-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            /* Generous padding for visual separation */
+            padding: 8rem 1.5rem; 
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 3.5rem; /* Larger title for impact */
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            /* Gradient Text Effect */
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
+            animation: pulseGlow 5s infinite alternate;
+        }
+
+        .hero-subtext {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #94a3b8; /* Slate-400 */
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Primary CTA Button (Hero) */
+        .cta-primary-hero {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: black;
+            background-color: var(--color-primary);
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(34, 211, 238, 0.6);
+        }
+        .cta-primary-hero:hover {
+            background-color: #06b6d4; /* Darker cyan */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(34, 211, 238, 0.8);
+        }
+
+        /* Secondary CTA Button (Hero) */
+        .cta-secondary-hero {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            background-color: transparent;
+            transition: all 0.3s;
+        }
+        .cta-secondary-hero:hover {
+            background-color: rgba(34, 211, 238, 0.1);
+            color: white;
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Responsive adjustment for title on mobile */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtext {
+                font-size: 1rem;
+            }
+            .hero-section {
+                padding: 6rem 1rem;
+            }
+        }
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-illustration {
+                width: 300px;
+                height: 300px;
+                opacity: 0.05;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+
+        /* Background animation for extra aesthetics */
+        @keyframes pulseGlow {
+            0% { filter: brightness(1.0) drop-shadow(0 0 5px rgba(34, 211, 238, 0.5)); }
+            100% { filter: brightness(1.2) drop-shadow(0 0 15px rgba(99, 102, 241, 0.8)); }
+        }
+
+        /* Abstract Background Shapes (SVG for a self-contained, high-tech look) */
+        .hero-illustration {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            opacity: 0.1;
+            z-index: 1;
+            width: 600px; /* Large size */
+            height: 600px;
+            filter: blur(50px);
+            pointer-events: none;
+            animation: rotateBackground 30s linear infinite;
+        }
+
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECTION: Aesthetic Hero Section (Headliner, Subtext, CTAs, Background Glow) -->
+    <section class="hero-section">
+        <!-- Abstract Background Illustration (SVG for self-contained glow) -->
+        <svg class="hero-illustration" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--color-primary); stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:var(--color-accent); stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <path fill="url(#gradient)" d="M54.5,-29.9C65.5,-12.3,64.2,16.2,50.3,31.7C36.4,47.3,9.8,50,-15.8,42.9C-41.5,35.8,-65.3,18,-66,-0.1C-66.6,-18.2,-44.2,-36.4,-22.4,-48.9C-0.6,-61.4,20.8,-68.2,36.9,-58.5C53.1,-48.8,64.7,-32.7,54.5,-29.9Z" transform="translate(100 100)" />
+        </svg>
+
+        <div class="hero-content">
+            <!-- Headline -->
+            <h1 class="hero-title">
+                Next-Generation Digital Solutions
+            </h1>
+            <!-- Subtext -->
+            <p class="hero-subtext">
+                Leveraging cutting-edge blue-chip technology for unparalleled performance and security in the digital landscape. Experience the future, today.
+            </p>
+            
+            <!-- CTA Group -->
+            <div class="cta-group">
+                <a href="#" class="cta-primary-hero">
+                    Start Your Free Trial
+                </a>
+                <a href="#" class="cta-secondary-hero">
+                    Explore Features
+                </a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
